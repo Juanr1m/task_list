@@ -19,7 +19,6 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<TaskBloc>(context).add(TaskInitialEvent());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Bloc pattern demo for AlifTech',

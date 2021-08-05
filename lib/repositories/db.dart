@@ -33,7 +33,6 @@ class TaskDatabase {
     Directory documentsDir = await getApplicationDocumentsDirectory();
     String path = join(documentsDir.path, _databaseName);
 
-    // SQL code to create the database table
     var db =
         await openDatabase(path, version: _databaseVersion, onCreate: onCreate);
     return db;
@@ -51,10 +50,18 @@ class TaskDatabase {
   }
 
   // get full tasks
-  Future<List<Task>> getFullTasks() async {
+  Future<List<Task>> getFullTasks(int id) async {
     final db = await database;
     List<Map> list = [];
-    list = await db!.rawQuery('select *from $mytable');
+    if (id == 1)
+      list = await db!.rawQuery('select *from $mytable');
+    else if (id == 2)
+      list = await db!.rawQuery(
+          'select *from $mytable WHERE $columnStatus = "В прогрессе"');
+    else
+      list = await db!
+          .rawQuery('select *from $mytable WHERE $columnStatus = "Выполнено"');
+
     List<Task> note = [];
     list.forEach((e) => note.add(Task(
         title: e["title"],

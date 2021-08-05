@@ -1,4 +1,4 @@
-#Thu Aug 05 18:44:41 UZT 2021
+#Thu Aug 05 20:12:06 UZT 2021
 base.0=/home/rim/work/bloc_pattern_for_interview/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

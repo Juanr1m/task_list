@@ -2,7 +2,7 @@ import 'package:aliftech_test/bloc/tasks/task_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-AppBar buildAppBar(BuildContext context) {
+AppBar buildAppBar(BuildContext context, int id) {
   return AppBar(
     actions: [
       Padding(
@@ -16,7 +16,7 @@ AppBar buildAppBar(BuildContext context) {
               child: Text('В порядке возрастания сроков'),
               onTap: () {
                 BlocProvider.of<TaskBloc>(context)
-                    .add(TaskfilterEvent(isOrderToBig: true));
+                    .add(TaskfilterEvent(isOrderToBig: true, id: id));
               },
             ),
             DropdownMenuItem(
@@ -24,7 +24,7 @@ AppBar buildAppBar(BuildContext context) {
               child: Text('В порядке убывания сроков'),
               onTap: () {
                 BlocProvider.of<TaskBloc>(context)
-                    .add(TaskfilterEvent(isOrderToBig: false));
+                    .add(TaskfilterEvent(isOrderToBig: false, id: id));
               },
             ),
           ],

@@ -1,12 +1,10 @@
-import 'package:aliftech_test/repositories/models/task.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:aliftech_test/bloc/tasks/task_bloc.dart';
 
 class AddTaskScreen extends StatefulWidget {
-  final Task? task;
-  final int? index;
-  AddTaskScreen({Key? key, this.task, this.index}) : super(key: key);
+  final int id;
+  AddTaskScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
@@ -56,7 +54,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 BlocProvider.of<TaskBloc>(context).add(TaskAddEvent(
                     title: _title,
                     date: DateTime.parse(_dateController.text),
-                    status: _status));
+                    status: _status,
+                    id: widget.id));
 
                 Navigator.pop(context);
               }

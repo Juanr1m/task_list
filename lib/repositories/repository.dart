@@ -5,8 +5,8 @@ class DataRepository {
   static const TIME = 10;
   TaskDatabase databaseHelper = TaskDatabase();
 
-  Future<List<Task>> getFullTasks() =>
-      databaseHelper.getFullTasks().timeout(Duration(seconds: TIME));
+  Future<List<Task>> getFullTasks(int id) =>
+      databaseHelper.getFullTasks(id).timeout(Duration(seconds: TIME));
 
   Future<int> addToBox(Task task) =>
       databaseHelper.addToBox(task).timeout(Duration(seconds: TIME));

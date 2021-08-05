@@ -21,12 +21,15 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     TaskEvent event,
   ) async* {
     if (event is TaskInitialEvent) {
-      yield* _mapInitialEventToState();
+      yield* _mapInitialEventToState(event.id);
     }
 
     if (event is TaskAddEvent) {
       yield* _mapTaskAddEventToState(
-          title: event.title, date: event.date, status: event.status);
+          title: event.title,
+          date: event.date,
+          status: event.status,
+          id: event.id);
     }
 
     if (event is TaskEditEvent) {
@@ -42,15 +45,16 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     }
 
     if (event is TaskfilterEvent) {
-      yield* _mapTaskFilterEventToState(isOrderToBig: event.isOrderToBig);
+      yield* _mapTaskFilterEventToState(
+          isOrderToBig: event.isOrderToBig, id: event.id);
     }
   }
 
   // Stream Functions
-  Stream<TaskState> _mapInitialEventToState() async* {
+  Stream<TaskState> _mapInitialEventToState(int id) async* {
     yield TasksLoading();
 
-    await _getTasks();
+    await _getTasks(id);
 
     yield AllTasksState(tasks: _tasks);
   }
@@ -58,9 +62,10 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   Stream<TaskState> _mapTaskAddEventToState(
       {required String title,
       required DateTime date,
-      required String status}) async* {
+      required String status,
+      required int id}) async* {
     yield TasksLoading();
-    await _addToTasks(title: title, date: date, status: status);
+    await _addToTasks(title: title, date: date, status: status, id: id);
     yield AllTasksState(tasks: _tasks);
   }
 
@@ -87,9 +92,9 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   Stream<TaskState> _mapTaskFilterEventToState(
-      {required bool isOrderToBig}) async* {
+      {required bool isOrderToBig, required int id}) async* {
     yield TasksLoading();
-    await _getTasks();
+    await _getTasks(id);
     if (isOrderToBig) {
       _tasks.sort((a, b) {
         var aDate = a.date;
@@ -107,8 +112,8 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   // Helper Functions
-  Future<void> _getTasks() async {
-    await _taskDatabase.getFullTasks().then((value) {
+  Future<void> _getTasks(int id) async {
+    await _taskDatabase.getFullTasks(id).then((value) {
       _tasks = value;
     });
   }
@@ -116,10 +121,11 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   Future<void> _addToTasks(
       {required String title,
       required DateTime date,
-      required String status}) async {
+      required String status,
+      required int id}) async {
     await _taskDatabase
         .addToBox(Task(title: title, date: date, status: status));
-    await _getTasks();
+    await _getTasks(id);
   }
 
   Future<void> _updateTask(
@@ -129,11 +135,11 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       required String newStatus}) async {
     await _taskDatabase.updateTask(
         index!, Task(title: newTitle, date: newDate, status: newStatus));
-    await _getTasks();
+    await _getTasks(1);
   }
 
   Future<void> _removeFromTasks({required int index}) async {
     await _taskDatabase.deleteFromBox(index);
-    await _getTasks();
+    await _getTasks(1);
   }
 }

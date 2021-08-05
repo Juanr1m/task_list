@@ -6,15 +6,23 @@ abstract class TaskEvent extends Equatable {
 }
 
 // initial event
-class TaskInitialEvent extends TaskEvent {}
+class TaskInitialEvent extends TaskEvent {
+  final int id;
+  TaskInitialEvent({required this.id});
+}
 
 // add event
 class TaskAddEvent extends TaskEvent {
   final String title;
   final DateTime date;
   final String status;
+  final int id;
 
-  TaskAddEvent({required this.title, required this.date, required this.status});
+  TaskAddEvent(
+      {required this.id,
+      required this.title,
+      required this.date,
+      required this.status});
 }
 
 // edit event
@@ -40,6 +48,7 @@ class TaskDeleteEvent extends TaskEvent {
 
 class TaskfilterEvent extends TaskEvent {
   final bool isOrderToBig;
+  final int id;
 
-  TaskfilterEvent({required this.isOrderToBig});
+  TaskfilterEvent({required this.isOrderToBig, required this.id});
 }
