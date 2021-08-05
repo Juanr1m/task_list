@@ -1,5 +1,5 @@
-import 'package:agrobank_test/bloc/bottom_navigation/bottomnavigation_bloc.dart';
-import 'package:agrobank_test/bloc/bottom_navigation/bottomnavigation_event.dart';
+import 'package:aliftech_test/bloc/bottom_navigation/bottomnavigation_bloc.dart';
+import 'package:aliftech_test/bloc/bottom_navigation/bottomnavigation_event.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {

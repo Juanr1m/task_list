@@ -1,7 +1,7 @@
-import 'package:agrobank_test/repositories/models/task.dart';
+import 'package:aliftech_test/repositories/models/task.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:agrobank_test/bloc/tasks/task_bloc.dart';
+import 'package:aliftech_test/bloc/tasks/task_bloc.dart';
 
 class AddTaskScreen extends StatefulWidget {
   final Task? task;

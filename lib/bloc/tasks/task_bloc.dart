@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:agrobank_test/repositories/db.dart';
-import 'package:agrobank_test/repositories/di_locator.dart';
-import 'package:agrobank_test/repositories/repository.dart';
+import 'package:aliftech_test/repositories/di_locator.dart';
+import 'package:aliftech_test/repositories/repository.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:bloc/bloc.dart';
 
-import 'package:agrobank_test/repositories/models/task.dart';
+import 'package:aliftech_test/repositories/models/task.dart';
 
 part 'task_event.dart';
 part 'task_state.dart';

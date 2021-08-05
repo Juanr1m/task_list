@@ -1,5 +1,5 @@
-import 'package:agrobank_test/repositories/db.dart';
-import 'package:agrobank_test/repositories/models/task.dart';
+import 'package:aliftech_test/repositories/db.dart';
+import 'package:aliftech_test/repositories/models/task.dart';
 
 class DataRepository {
   static const TIME = 10;
