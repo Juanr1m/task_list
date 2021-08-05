@@ -19,6 +19,6 @@ class DataRepository {
           .deleteFromBox(title, date, status)
           .timeout(Duration(seconds: TIME));
 
-  Future updateTask(int index, Task task) =>
-      databaseHelper.updateTask(index, task).timeout(Duration(seconds: TIME));
+  Future updateTask(Task task, Task oldTask) =>
+      databaseHelper.updateTask(task, oldTask).timeout(Duration(seconds: TIME));
 }

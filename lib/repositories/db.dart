@@ -87,10 +87,10 @@ class TaskDatabase {
     await db!.delete(mytable);
   }
 
-  Future<int> updateTask(int? index, Task task) async {
+  Future updateTask(Task task, Task oldTask) async {
     final db = await database;
-    var res = await db!.update(mytable, task.toMap(),
-        where: '$columnId = ?', whereArgs: [index]);
+    var res = await db!.rawQuery(
+        'UPDATE $mytable SET $columnName = "${task.title}", $columnDate = "${task.date}", $columnStatus = "${task.status}" WHERE $columnName = "${oldTask.title}" AND $columnDate = "${oldTask.date}" AND $columnStatus = "${oldTask.status}"');
     return res;
   }
 }

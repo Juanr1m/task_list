@@ -34,10 +34,9 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
 
     if (event is TaskEditEvent) {
       yield* _mapTaskEditEventToState(
-          title: event.title,
-          date: event.date,
-          status: event.status,
-          index: event.index);
+        task: event.task,
+        oldTask: event.oldTask,
+      );
     }
 
     if (event is TaskDeleteEvent) {
@@ -71,13 +70,9 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   Stream<TaskState> _mapTaskEditEventToState(
-      {required String title,
-      required DateTime date,
-      required String status,
-      required int? index}) async* {
+      {required Task task, required Task oldTask}) async* {
     yield TasksLoading();
-    await _updateTask(
-        newTitle: title, newStatus: status, newDate: date, index: index);
+    await _updateTask(task: task, oldTask: oldTask);
     yield AllTasksState(tasks: _tasks);
   }
 
@@ -132,13 +127,8 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     await _getTasks(id);
   }
 
-  Future<void> _updateTask(
-      {required int? index,
-      required String newTitle,
-      required DateTime newDate,
-      required String newStatus}) async {
-    await _taskDatabase.updateTask(
-        index!, Task(title: newTitle, date: newDate, status: newStatus));
+  Future<void> _updateTask({required Task task, required Task oldTask}) async {
+    await _taskDatabase.updateTask(task, oldTask);
     await _getTasks(1);
   }
 

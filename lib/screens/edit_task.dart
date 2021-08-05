@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:aliftech_test/bloc/tasks/task_bloc.dart';
 
 class EditTaskScreen extends StatefulWidget {
-  final Task? task;
-  final int? index;
-  EditTaskScreen({Key? key, this.task, this.index}) : super(key: key);
+  final Task task;
+
+  EditTaskScreen({Key? key, required this.task}) : super(key: key);
 
   @override
   _EditTaskScreenState createState() => _EditTaskScreenState();
@@ -26,8 +26,8 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
   void initState() {
     super.initState();
     _dateController.text = _date.toString();
-    _title = widget.task!.title;
-    _status = widget.task!.status;
+    _title = widget.task.title;
+    _status = widget.task.status;
   }
 
   @override
@@ -64,11 +64,12 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
-              BlocProvider.of<TaskBloc>(context).add(TaskEditEvent(
+              Task newTask = Task(
                   title: _title,
-                  status: _status,
                   date: DateTime.parse(_dateController.text),
-                  index: widget.index));
+                  status: _status);
+              BlocProvider.of<TaskBloc>(context)
+                  .add(TaskEditEvent(oldTask: widget.task, task: newTask));
               Navigator.pop(context);
             }
           },

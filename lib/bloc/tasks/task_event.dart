@@ -27,16 +27,9 @@ class TaskAddEvent extends TaskEvent {
 
 // edit event
 class TaskEditEvent extends TaskEvent {
-  final String title;
-  final DateTime date;
-  final String status;
-  final int? index;
+  final Task task, oldTask;
 
-  TaskEditEvent(
-      {required this.date,
-      required this.status,
-      required this.title,
-      required this.index});
+  TaskEditEvent({required this.task, required this.oldTask});
 }
 
 // delete event

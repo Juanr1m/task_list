@@ -36,7 +36,6 @@ class ListOfTasks extends StatelessWidget {
                     MaterialPageRoute(builder: (BuildContext context) {
                   return EditTaskScreen(
                     task: task,
-                    index: index,
                   );
                 }))
               },
@@ -58,7 +57,6 @@ class ListOfTasks extends StatelessWidget {
                   MaterialPageRoute(builder: (BuildContext context) {
                 return EditTaskScreen(
                   task: task,
-                  index: index,
                 );
               }))
             },
