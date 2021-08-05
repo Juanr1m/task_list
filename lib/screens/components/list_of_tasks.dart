@@ -46,8 +46,8 @@ class ListOfTasks extends StatelessWidget {
               color: Colors.red,
               icon: Icons.delete,
               onTap: () {
-                BlocProvider.of<TaskBloc>(context)
-                    .add(TaskDeleteEvent(index: index));
+                BlocProvider.of<TaskBloc>(context).add(TaskDeleteEvent(
+                    task.title, task.date.toIso8601String(), task.status));
               },
             ),
           ],

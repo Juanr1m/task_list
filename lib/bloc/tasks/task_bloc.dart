@@ -41,7 +41,8 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     }
 
     if (event is TaskDeleteEvent) {
-      yield* _mapTaskDeleteEventToState(index: event.index);
+      yield* _mapTaskDeleteEventToState(
+          title: event.title, date: event.date, status: event.status);
     }
 
     if (event is TaskfilterEvent) {
@@ -80,9 +81,12 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     yield AllTasksState(tasks: _tasks);
   }
 
-  Stream<TaskState> _mapTaskDeleteEventToState({required int index}) async* {
+  Stream<TaskState> _mapTaskDeleteEventToState(
+      {required String title,
+      required String date,
+      required String status}) async* {
     yield TasksLoading();
-    await _removeFromTasks(index: index);
+    await _removeFromTasks(title: title, date: date, status: status);
     _tasks.sort((a, b) {
       var aDate = a.title;
       var bDate = b.title;
@@ -138,8 +142,11 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     await _getTasks(1);
   }
 
-  Future<void> _removeFromTasks({required int index}) async {
-    await _taskDatabase.deleteFromBox(index);
+  Future<void> _removeFromTasks(
+      {required String title,
+      required String date,
+      required String status}) async {
+    await _taskDatabase.deleteFromBox(title, date, status);
     await _getTasks(1);
   }
 }

@@ -49,7 +49,6 @@ class TaskDatabase {
           ''');
   }
 
-  // get full tasks
   Future<List<Task>> getFullTasks(int id) async {
     final db = await database;
     List<Map> list = [];
@@ -70,27 +69,24 @@ class TaskDatabase {
     return note;
   }
 
-  // to add data in box
   Future<int> addToBox(Task task) async {
     final db = await database;
     var res = await db!.insert(mytable, task.toMap());
     return res;
   }
 
-  // delete data from box
-  Future<int> deleteFromBox(int index) async {
+  Future deleteFromBox(String title, String date, String status) async {
     final db = await database;
-    var res = db!.delete(mytable, where: '$columnId = ?', whereArgs: [index]);
+    var res = db!.rawQuery(
+        'DELETE from $mytable WHERE $columnName = "$title" AND $columnDate = "$date" AND $columnStatus = "$status"');
     return res;
   }
 
-  // delete all data from box
   Future<void> deleteAll() async {
     final db = await database;
     await db!.delete(mytable);
   }
 
-  // update data
   Future<int> updateTask(int? index, Task task) async {
     final db = await database;
     var res = await db!.update(mytable, task.toMap(),

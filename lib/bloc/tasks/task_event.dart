@@ -41,9 +41,13 @@ class TaskEditEvent extends TaskEvent {
 
 // delete event
 class TaskDeleteEvent extends TaskEvent {
-  final int index;
+  final String title, date, status;
 
-  TaskDeleteEvent({required this.index});
+  TaskDeleteEvent(
+    this.title,
+    this.date,
+    this.status,
+  );
 }
 
 class TaskfilterEvent extends TaskEvent {

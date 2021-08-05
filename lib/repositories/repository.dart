@@ -14,8 +14,10 @@ class DataRepository {
   Future deleteAll() =>
       databaseHelper.deleteAll().timeout(Duration(seconds: TIME));
 
-  Future deleteFromBox(int index) =>
-      databaseHelper.deleteFromBox(index).timeout(Duration(seconds: TIME));
+  Future deleteFromBox(String title, String date, String status) =>
+      databaseHelper
+          .deleteFromBox(title, date, status)
+          .timeout(Duration(seconds: TIME));
 
   Future updateTask(int index, Task task) =>
       databaseHelper.updateTask(index, task).timeout(Duration(seconds: TIME));
