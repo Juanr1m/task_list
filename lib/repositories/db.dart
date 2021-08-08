@@ -90,7 +90,7 @@ class TaskDatabase {
   Future updateTask(Task task, Task oldTask) async {
     final db = await database;
     var res = await db!.rawQuery(
-        'UPDATE $mytable SET $columnName = "${task.title}", $columnDate = "${task.date}", $columnStatus = "${task.status}" WHERE $columnName = "${oldTask.title}" AND $columnDate = "${oldTask.date}" AND $columnStatus = "${oldTask.status}"');
+        'UPDATE $mytable SET $columnName = "${task.title}", $columnDate = "${task.date.toIso8601String()}", $columnStatus = "${task.status}" WHERE $columnName = "${oldTask.title}" AND $columnDate = "${oldTask.date.toIso8601String()}" AND $columnStatus = "${oldTask.status}"');
     return res;
   }
 }
